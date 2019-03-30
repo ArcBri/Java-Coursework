@@ -1,0 +1,89 @@
+/*
+ * CS1010J Programming Methodology
+ * Problem Set 2 Exercise #20: PS2_Ex20_UCard.java
+ * 
+ * <Programmer to check validity of card via Luhn-an algorithm as well as determine issuing branch if valid>
+ * 
+ * 
+ * <Arcillas Brian Joshua Pelaez>
+ */
+
+import java.util.*;
+
+class UCard {
+  
+  public static void main(String[] args) {
+    
+    Scanner sc = new Scanner(System.in);
+    
+    System.out.print("Enter uCard Number: ");
+    int cardno=sc.nextInt();
+    int checkno=luhnah(cardno);
+    System.out.println("The check number is " + checkno);
+    boolean valid = checkno%7==0 ;
+    
+    if (valid){
+      System.out.println("Valid");
+printBranch(cardno);
+    }else{
+      System.out.println("Invalid");
+    }
+  }
+  
+  // <Find check number>
+  public static int luhnah(int cardno) {
+    int no1=cardno/10000000;
+    int no9=cardno%10;
+    int no8=(cardno%100)-no9;
+    int no7=(cardno%1000)-(cardno%100)-no9;
+    int no6=(cardno%10000)-(cardno%1000)-(cardno%100)-no9;
+    int no5=(cardno%100000)-(cardno%10000)-(cardno%1000)-(cardno%100)-no9;
+    int no4=(cardno%1000000)-(cardno%100000)-(cardno%10000)-(cardno%1000)-(cardno%100)-no9;
+    int no3=(cardno%10000000)-(cardno%1000000)-(cardno%100000)-(cardno%10000)-(cardno%1000)-(cardno%100)-no9;
+    int no2=(cardno%100000000)-(cardno%10000000)-(cardno%1000000)-(cardno%100000)-(cardno%10000)-(cardno%1000)-(cardno%100)-no9;
+    
+    if (2*no2>9){
+      no2=(2*no2%10)+(2*no2/10);
+     }else{
+       no2=2*no2;
+     }
+     
+     if (2*no4>9){
+       no4=(2*no4%10)+(2*no4/10);
+     }else{
+       no4=2*no4;
+     }
+     
+     if (2*no6>9){
+       no6=(2*no6%10)+(2*no6/10);
+     }else{
+       no6=2*no6;
+     }
+     
+     if (2*no8>9){
+       no8=(2*no8%10)+(2*no8/10);
+     }else{
+       no8=2*no8;
+     }
+     int checkno=no1+no2+no3+no4+no5+no6+no7+no8+no9  ;  // stub, to be replaced by your code
+     return checkno;
+  }
+  
+  // <Check branch using first two digits>
+  public static void printBranch(int cardno) {
+    int branchno=cardno/10000000;
+    switch (branchno){
+      case 31: case 32: case 33: case 34: case 35:
+        System.out.println("Issued by East Branch"); break;
+      case 51: case 52: case 53: case 54: case 55:
+      System.out.println("Issued by West Branch"); break;
+      default:
+       System.out.println("Issued by Central Branch"); break;
+        
+        
+        
+        
+    }
+    
+  }
+  }

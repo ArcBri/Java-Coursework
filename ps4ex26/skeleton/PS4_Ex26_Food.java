@@ -1,0 +1,51 @@
+/*
+ * CS1010J Programming Methodology
+ * Problem Set 4 Exercise #26: PS4_Ex26_Food.java
+ * 
+ * This program computes the number of ways to have 
+ * fast-food meals and health-food meals out of n meals.
+ * 
+ * <Type your name here>
+ */
+
+import java.util.*;
+
+class Food {
+  
+  public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    
+    System.out.print("Enter total number of meals: ");
+    int meal=sc.nextInt();
+    
+    System.out.println("Number of combinations = "+enumerate(meal) );
+  }
+  
+  // Compute the number of ways to take the n meals
+  // provided there are NO two consecutive fast-food meals.
+  public static int enumerate(int n) {
+    boolean fast=false;
+    int count=0;
+    if(n==1){
+      return 2;
+    }else if(n==2){
+      if(fast){
+        return 1;
+      }else{
+        return 2*enumerate(n-1);
+      }
+    }else if(count==0){
+      count=1;
+      return enumerate(n-1)+enumerate(n-2);
+    }else{
+      if(fast){
+        fast=false;
+        return (enumerate(n-1))+(enumerate(n-2));
+      }else{
+        fast=true;
+        return (2*enumerate(n-1))+enumerate(n-2);
+      }
+      
+    } 
+  }
+}

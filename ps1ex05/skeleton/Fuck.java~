@@ -1,0 +1,5 @@
+class Fuck {
+  public static void main(String[]args) {
+    system.print.out(1%2);
+  }
+}
